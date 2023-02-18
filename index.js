@@ -40,14 +40,14 @@ const VERSION_STR = VERSION
  * For example:
  *   '-WW0102-'...
  */
-const VERSION_PREFIX = `-WW${VERSION_STR}-`
+const VERSION_PREFIX = `-RM${VERSION_STR}-`
 
 /**
  * WebTorrent Client
  * @param {Object=} opts
  */
 export default class WebTorrent extends EventEmitter {
-  constructor (opts = {}) {
+  constructor(opts = {}) {
     super()
 
     if (typeof opts.peerId === 'string') {
@@ -148,7 +148,7 @@ export default class WebTorrent extends EventEmitter {
     if (typeof loadIPSet === 'function' && opts.blocklist != null) {
       loadIPSet(opts.blocklist, {
         headers: {
-          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`
+          'user-agent': `RUM-Torrent/${VERSION} (https://rumsystem.net)`
         }
       }, (err, ipSet) => {
         if (err) return console.error(`Failed to load blocklist: ${err.message}`)
@@ -169,7 +169,7 @@ export default class WebTorrent extends EventEmitter {
    * @param {String} force
    * @return {BrowserServer||NodeServer}
    */
-  createServer (options, force) {
+  createServer(options, force) {
     if (this.destroyed) throw new Error('torrent is destroyed')
     if (this._server) throw new Error('server already created')
     if ((typeof window === 'undefined' || force === 'node') && force !== 'browser') {
@@ -185,18 +185,18 @@ export default class WebTorrent extends EventEmitter {
     }
   }
 
-  get downloadSpeed () { return this._downloadSpeed() }
+  get downloadSpeed() { return this._downloadSpeed() }
 
-  get uploadSpeed () { return this._uploadSpeed() }
+  get uploadSpeed() { return this._uploadSpeed() }
 
-  get progress () {
+  get progress() {
     const torrents = this.torrents.filter(torrent => torrent.progress !== 1)
     const downloaded = torrents.reduce((total, torrent) => total + torrent.downloaded, 0)
     const length = torrents.reduce((total, torrent) => total + (torrent.length || 0), 0) || 1
     return downloaded / length
   }
 
-  get ratio () {
+  get ratio() {
     const uploaded = this.torrents.reduce((total, torrent) => total + torrent.uploaded, 0)
     const received = this.torrents.reduce((total, torrent) => total + torrent.received, 0) || 1
     return uploaded / received
@@ -210,13 +210,13 @@ export default class WebTorrent extends EventEmitter {
    * @param  {string|Buffer|Object|Torrent} torrentId
    * @return {Promise<Torrent|null>}
    */
-  async get (torrentId) {
+  async get(torrentId) {
     if (torrentId instanceof Torrent) {
       if (this.torrents.includes(torrentId)) return torrentId
     } else {
       const torrents = this.torrents
       let parsed
-      try { parsed = await parseTorrent(torrentId) } catch (err) {}
+      try { parsed = await parseTorrent(torrentId) } catch (err) { }
       if (!parsed) return null
       if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
 
@@ -233,7 +233,7 @@ export default class WebTorrent extends EventEmitter {
    * @param {Object} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
    */
-  add (torrentId, opts = {}, ontorrent = () => {}) {
+  add(torrentId, opts = {}, ontorrent = () => { }) {
     if (this.destroyed) throw new Error('client is destroyed')
     if (typeof opts === 'function') [opts, ontorrent] = [{}, opts]
 
@@ -254,7 +254,7 @@ export default class WebTorrent extends EventEmitter {
       this.emit('torrent', torrent)
     }
 
-    function onClose () {
+    function onClose() {
       torrent.removeListener('_infoHash', onInfoHash)
       torrent.removeListener('ready', onReady)
       torrent.removeListener('close', onClose)
@@ -279,7 +279,7 @@ export default class WebTorrent extends EventEmitter {
    * @param  {Object=} opts
    * @param  {function=} onseed called when torrent is seeding
    */
-  seed (input, opts, onseed) {
+  seed(input, opts, onseed) {
     if (this.destroyed) throw new Error('client is destroyed')
     if (typeof opts === 'function') [opts, onseed] = [{}, opts]
 
@@ -293,7 +293,7 @@ export default class WebTorrent extends EventEmitter {
 
     // When seeding from fs path, initialize store from that path to avoid a copy
     if (isFilePath) opts.path = path.dirname(input)
-    if (!opts.createdBy) opts.createdBy = `WebTorrent/${VERSION_STR}`
+    if (!opts.createdBy) opts.createdBy = `RUM-Torrent/${VERSION_STR}`
 
     const onTorrent = torrent => {
       const tasks = [
@@ -372,7 +372,7 @@ export default class WebTorrent extends EventEmitter {
    * @param  {string|Buffer|Torrent}   torrentId
    * @param  {function} cb
    */
-  async remove (torrentId, opts, cb) {
+  async remove(torrentId, opts, cb) {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
 
     this._debug('remove')
@@ -381,7 +381,7 @@ export default class WebTorrent extends EventEmitter {
     this._remove(torrent, opts, cb)
   }
 
-  _remove (torrent, opts, cb) {
+  _remove(torrent, opts, cb) {
     if (!torrent) return
     if (typeof opts === 'function') return this._remove(torrent, null, opts)
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
@@ -391,7 +391,7 @@ export default class WebTorrent extends EventEmitter {
     }
   }
 
-  address () {
+  address() {
     if (!this.listening) return null
     return this._connPool
       ? this._connPool.tcpServer.address()
@@ -402,7 +402,7 @@ export default class WebTorrent extends EventEmitter {
    * Set global download throttle rate.
    * @param  {Number} rate (must be bigger or equal than zero, or -1 to disable throttling)
    */
-  throttleDownload (rate) {
+  throttleDownload(rate) {
     rate = Number(rate)
     if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
     this._downloadLimit = rate
@@ -415,7 +415,7 @@ export default class WebTorrent extends EventEmitter {
    * Set global upload throttle rate
    * @param  {Number} rate (must be bigger or equal than zero, or -1 to disable throttling)
    */
-  throttleUpload (rate) {
+  throttleUpload(rate) {
     rate = Number(rate)
     if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
     this._uploadLimit = rate
@@ -428,12 +428,12 @@ export default class WebTorrent extends EventEmitter {
    * Destroy the client, including all torrents and connections to peers.
    * @param  {function} cb
    */
-  destroy (cb) {
+  destroy(cb) {
     if (this.destroyed) throw new Error('client already destroyed')
     this._destroy(null, cb)
   }
 
-  _destroy (err, cb) {
+  _destroy(err, cb) {
     this._debug('client destroy')
     this.destroyed = true
 
@@ -471,7 +471,7 @@ export default class WebTorrent extends EventEmitter {
     this.throttleGroups.up.destroy()
   }
 
-  _onListening () {
+  _onListening() {
     this._debug('listening')
     this.listening = true
 
@@ -484,13 +484,13 @@ export default class WebTorrent extends EventEmitter {
     this.emit('listening')
   }
 
-  _debug () {
+  _debug() {
     const args = [].slice.call(arguments)
     args[0] = `[${this._debugId}] ${args[0]}`
     debug(...args)
   }
 
-  async _getByHash (infoHashHash) {
+  async _getByHash(infoHashHash) {
     for (const torrent of this.torrents) {
       if (!torrent.infoHashHash) {
         torrent.infoHashHash = await hash(hex2arr('72657132' /* 'req2' */ + torrent.infoHash), 'hex')
@@ -513,7 +513,7 @@ WebTorrent.VERSION = VERSION
  * @param  {*} obj
  * @return {boolean}
  */
-function isReadable (obj) {
+function isReadable(obj) {
   return typeof obj === 'object' && obj != null && typeof obj.pipe === 'function'
 }
 
@@ -522,6 +522,6 @@ function isReadable (obj) {
  * @param  {*} obj
  * @return {boolean}
  */
-function isFileList (obj) {
+function isFileList(obj) {
   return typeof FileList !== 'undefined' && obj instanceof FileList
 }
