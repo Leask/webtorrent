@@ -167,7 +167,8 @@
     "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js",
     "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
     "test-node": "tape test/*.js test/node/*.js | tap-spec",
-    "update-authors": "./scripts/update-authors.sh"
+    "update-authors": "./scripts/update-authors.sh",
+    "pull-upstream": "git pull git@github.com:webtorrent/webtorrent.git"
   },
   "renovate": {
     "extends": [
