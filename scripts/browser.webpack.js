@@ -10,9 +10,7 @@ export default {
     aliasFields: ['browser'],
     alias: {
       ...info.browser,
-      crypto: false,
-      stream: 'readable-stream',
-      path: 'path-browserify'
+      path: 'path-esm'
     }
   },
   output: {
@@ -29,8 +27,7 @@ export default {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      process: '/polyfills/process-fast.js',
-      Buffer: ['buffer', 'Buffer']
+      process: '/polyfills/process-fast.js'
     }),
     new webpack.DefinePlugin({
       global: 'globalThis'

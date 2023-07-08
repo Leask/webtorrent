@@ -65,6 +65,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
   lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
   utPex: Boolean,          // Enable BEP11 Peer Exchange (default=true)
+  natUpnp: Boolean | String, // Enable NAT port mapping via NAT-UPnP (default=true). NodeJS only
+  natPmp: Boolean,         // Enable NAT port mapping via NAT-PMP (default=true). NodeJS only.
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
   blocklist: Array|String, // List of IP's to block
@@ -81,6 +83,10 @@ For possible values of `opts.tracker` see the
 
 For possible values of `opts.blocklist` see the
 [`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
+
+For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be attempted first, then fallback to UPNP. NodeJS only.
+
+For `opts.natUpnp`, if set to `true`, a temporary mapping is used, if set to `permanent`, a permanent TTL will be used for UPNP if the router only supports permanent leases. NodeJS only.
 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
@@ -311,7 +317,7 @@ const player = document.querySelector('video')
 
 function download (instance) {
   client.add(magnetURI, torrent => {
-    const url = torrent.files[0].getStreamURL()
+    const url = torrent.files[0].streamURL
     console.log(url)
     // visit <origin>/webtorrent/ to see a list of torrents, where origin is the worker registration scope.
 
@@ -623,6 +629,10 @@ information on how to define a protocol extension.
 ## `torrent.on('noPeers', function (announceType) {})`
 
 Emitted every couple of seconds when no peers have been found. `announceType` is either `'tracker'`, `'dht'`, `'lsd'`, or `'ut_pex'` depending on which announce occurred to trigger this event. Note that if you're attempting to discover peers from a tracker, a DHT, a LSD, and PEX you'll see this event separately for each.
+
+## `torrent.on('verified', function (index) {})`
+
+Emitted every time a piece is verified, the value of the event is the index of the verified piece.
 
 # File API
 

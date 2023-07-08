@@ -1,3 +1,234 @@
+## [2.1.12](https://github.com/webtorrent/webtorrent/compare/v2.1.11...v2.1.12) (2023-07-05)
+
+
+### Bug Fixes
+
+* perf: faster stream resolution ([#2607](https://github.com/webtorrent/webtorrent/issues/2607)) ([e692270](https://github.com/webtorrent/webtorrent/commit/e692270cf9ba7d793b4b35b509ac0572f07477ce))
+
+## [2.1.11](https://github.com/webtorrent/webtorrent/compare/v2.1.10...v2.1.11) (2023-06-17)
+
+
+### Performance Improvements
+
+* drop buffer ([#2596](https://github.com/webtorrent/webtorrent/issues/2596)) ([7679994](https://github.com/webtorrent/webtorrent/commit/76799949239b784f98ccfc45210f68c7233e74ac))
+
+## [2.1.10](https://github.com/webtorrent/webtorrent/compare/v2.1.9...v2.1.10) (2023-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hybrid-chunk-store to ^1.2.2 ([#2595](https://github.com/webtorrent/webtorrent/issues/2595)) ([b04cc7a](https://github.com/webtorrent/webtorrent/commit/b04cc7a8ca3d555ebaecff0c3b90f91bc31d1508))
+
+## [2.1.9](https://github.com/webtorrent/webtorrent/compare/v2.1.8...v2.1.9) (2023-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2592](https://github.com/webtorrent/webtorrent/issues/2592)) ([0c62c36](https://github.com/webtorrent/webtorrent/commit/0c62c366b0310161c2d98a658515dac3f0d16502))
+
+## [2.1.8](https://github.com/webtorrent/webtorrent/compare/v2.1.7...v2.1.8) (2023-06-16)
+
+
+### Performance Improvements
+
+* use peer/lite ([#2591](https://github.com/webtorrent/webtorrent/issues/2591)) ([4e853f0](https://github.com/webtorrent/webtorrent/commit/4e853f0e965bbca21033c3912f8cc990b35ac2bf))
+
+## [2.1.7](https://github.com/webtorrent/webtorrent/compare/v2.1.6...v2.1.7) (2023-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2590](https://github.com/webtorrent/webtorrent/issues/2590)) ([01865c0](https://github.com/webtorrent/webtorrent/commit/01865c09dd84527dcf0d3caf3cbcb408bf009e2f))
+
+## [2.1.6](https://github.com/webtorrent/webtorrent/compare/v2.1.5...v2.1.6) (2023-06-16)
+
+
+### Performance Improvements
+
+* use path-esm as polyfill for path ([#2587](https://github.com/webtorrent/webtorrent/issues/2587)) ([6e08b00](https://github.com/webtorrent/webtorrent/commit/6e08b0069f1c7d7357ac56fcff9a81e0e07ff452))
+
+## [2.1.5](https://github.com/webtorrent/webtorrent/compare/v2.1.4...v2.1.5) (2023-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^9.12.1 ([#2588](https://github.com/webtorrent/webtorrent/issues/2588)) ([9ea487b](https://github.com/webtorrent/webtorrent/commit/9ea487b4f2470ba6d3afb4bcdbc4a19504a31a25))
+
+## [2.1.4](https://github.com/webtorrent/webtorrent/compare/v2.1.3...v2.1.4) (2023-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hybrid-chunk-store to ^1.2.1 ([#2589](https://github.com/webtorrent/webtorrent/issues/2589)) ([f482419](https://github.com/webtorrent/webtorrent/commit/f482419d5ad94e205f33c2aa4d67e8ba4ad9ddfb))
+
+## [2.1.3](https://github.com/webtorrent/webtorrent/compare/v2.1.2...v2.1.3) (2023-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.14.3 ([#2583](https://github.com/webtorrent/webtorrent/issues/2583)) ([d68ea94](https://github.com/webtorrent/webtorrent/commit/d68ea941d53d6dfdf39046796c215c332fd338ab))
+
+## [2.1.2](https://github.com/webtorrent/webtorrent/compare/v2.1.1...v2.1.2) (2023-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-chunk-store to ^4.1.0 ([c9103bf](https://github.com/webtorrent/webtorrent/commit/c9103bf410ad81d9afd3683a9c856bcbe3bf5079))
+
+## [2.1.1](https://github.com/webtorrent/webtorrent/compare/v2.1.0...v2.1.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* Revert "fix: correctly destroy piped streams in server" ([#2585](https://github.com/webtorrent/webtorrent/issues/2585)) ([e3c9269](https://github.com/webtorrent/webtorrent/commit/e3c9269b9f9deba824559054ea6ba2e369357b60)), closes [#2565](https://github.com/webtorrent/webtorrent/issues/2565)
+
+# [2.1.0](https://github.com/webtorrent/webtorrent/compare/v2.0.37...v2.1.0) (2023-06-13)
+
+
+### Features
+
+* update dependency streamx to ^2.14.1 ([#2580](https://github.com/webtorrent/webtorrent/issues/2580)) ([92df3a9](https://github.com/webtorrent/webtorrent/commit/92df3a963293d5bee4b22a01421f794907966e19))
+
+## [2.0.37](https://github.com/webtorrent/webtorrent/compare/v2.0.36...v2.0.37) (2023-06-08)
+
+
+### Bug Fixes
+
+* dont encode url path ([#2573](https://github.com/webtorrent/webtorrent/issues/2573)) ([13ad0fb](https://github.com/webtorrent/webtorrent/commit/13ad0fb4f20d6035889569a55c89d4ef813a246d))
+
+## [2.0.36](https://github.com/webtorrent/webtorrent/compare/v2.0.35...v2.0.36) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.11 ([9415322](https://github.com/webtorrent/webtorrent/commit/94153227df2e0371af11dedf24cb1bd429dc2760))
+
+## [2.0.35](https://github.com/webtorrent/webtorrent/compare/v2.0.34...v2.0.35) (2023-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semantic-release to v21 ([#2510](https://github.com/webtorrent/webtorrent/issues/2510)) ([e74b843](https://github.com/webtorrent/webtorrent/commit/e74b843f2f102d590d68db1db15ea7ac840fc485))
+
+## [2.0.34](https://github.com/webtorrent/webtorrent/compare/v2.0.33...v2.0.34) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.10 ([#2569](https://github.com/webtorrent/webtorrent/issues/2569)) ([31796f8](https://github.com/webtorrent/webtorrent/commit/31796f82f24ed4da2f634eec84203b49688b589c))
+
+## [2.0.33](https://github.com/webtorrent/webtorrent/compare/v2.0.32...v2.0.33) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.14.0 ([#2568](https://github.com/webtorrent/webtorrent/issues/2568)) ([29f412a](https://github.com/webtorrent/webtorrent/commit/29f412a665b95bdb35d10c5129271705edc1e184))
+
+## [2.0.32](https://github.com/webtorrent/webtorrent/compare/v2.0.31...v2.0.32) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.13.3 ([#2562](https://github.com/webtorrent/webtorrent/issues/2562)) ([11f86db](https://github.com/webtorrent/webtorrent/commit/11f86dbf495f2e16952054f3f0cea76d6a812fce))
+
+## [2.0.31](https://github.com/webtorrent/webtorrent/compare/v2.0.30...v2.0.31) (2023-06-05)
+
+
+### Bug Fixes
+
+* correctly destroy piped streams in server ([#2565](https://github.com/webtorrent/webtorrent/issues/2565)) ([86eda0a](https://github.com/webtorrent/webtorrent/commit/86eda0a470c4a5418a15ad55c31648ee043270c3))
+
+## [2.0.30](https://github.com/webtorrent/webtorrent/compare/v2.0.29...v2.0.30) (2023-06-05)
+
+
+### Bug Fixes
+
+* utp support bundlers and preprocessors ([#2564](https://github.com/webtorrent/webtorrent/issues/2564)) ([8b13937](https://github.com/webtorrent/webtorrent/commit/8b13937289629eeceb59a8dc8a9d4336d8f91ae7))
+
+## [2.0.29](https://github.com/webtorrent/webtorrent/compare/v2.0.28...v2.0.29) (2023-06-04)
+
+
+### Bug Fixes
+
+* utp ([#2561](https://github.com/webtorrent/webtorrent/issues/2561)) ([e4b2e34](https://github.com/webtorrent/webtorrent/commit/e4b2e34a69b6a09197b1cd8406f19fe2099c76a5))
+
+## [2.0.28](https://github.com/webtorrent/webtorrent/compare/v2.0.27...v2.0.28) (2023-06-03)
+
+
+### Bug Fixes
+
+* attempt to fix saucelabs CI ([#2557](https://github.com/webtorrent/webtorrent/issues/2557)) ([c89c27d](https://github.com/webtorrent/webtorrent/commit/c89c27d546bb89cfbe897f144afe48559452816f))
+
+## [2.0.27](https://github.com/webtorrent/webtorrent/compare/v2.0.26...v2.0.27) (2023-05-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lt_donthave to v2 ([#2555](https://github.com/webtorrent/webtorrent/issues/2555)) ([21e5007](https://github.com/webtorrent/webtorrent/commit/21e5007e111de492ce46c6d858c7b4a6b05523af))
+
+## [2.0.26](https://github.com/webtorrent/webtorrent/compare/v2.0.25...v2.0.26) (2023-05-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency parse-torrent to ^11.0.12 ([2766f6f](https://github.com/webtorrent/webtorrent/commit/2766f6fa396bc2f82595a83d7ede3effd0d53a42))
+
+## [2.0.25](https://github.com/webtorrent/webtorrent/compare/v2.0.24...v2.0.25) (2023-05-30)
+
+
+### Bug Fixes
+
+* drop simple-concat ([#2552](https://github.com/webtorrent/webtorrent/issues/2552)) ([1243a76](https://github.com/webtorrent/webtorrent/commit/1243a76e51228e469568a52c94dc9bf666ee93be))
+
+## [2.0.24](https://github.com/webtorrent/webtorrent/compare/v2.0.23...v2.0.24) (2023-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^4.1.7 ([#2551](https://github.com/webtorrent/webtorrent/issues/2551)) ([da87d38](https://github.com/webtorrent/webtorrent/commit/da87d3827fef1e16405328c16c4f21d4e943c4e2))
+
+## [2.0.23](https://github.com/webtorrent/webtorrent/compare/v2.0.22...v2.0.23) (2023-05-28)
+
+
+### Bug Fixes
+
+* drop randombytes ([#2546](https://github.com/webtorrent/webtorrent/issues/2546)) ([06b6548](https://github.com/webtorrent/webtorrent/commit/06b6548fab240f425704abe044dea1be5c5662fe))
+
+## [2.0.22](https://github.com/webtorrent/webtorrent/compare/v2.0.21...v2.0.22) (2023-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.9 ([#2545](https://github.com/webtorrent/webtorrent/issues/2545)) ([e28a7ba](https://github.com/webtorrent/webtorrent/commit/e28a7ba784c970bb33a7218a21c7d0b497be23a2))
+
+## [2.0.21](https://github.com/webtorrent/webtorrent/compare/v2.0.20...v2.0.21) (2023-05-27)
+
+
+### Performance Improvements
+
+* reduce the impact of request idle callback ([#2542](https://github.com/webtorrent/webtorrent/issues/2542)) ([36a3e36](https://github.com/webtorrent/webtorrent/commit/36a3e3617a03a39b1fbceadf265ab297ae647500))
+
+## [2.0.20](https://github.com/webtorrent/webtorrent/compare/v2.0.19...v2.0.20) (2023-05-27)
+
+
+### Bug Fixes
+
+* replace simple-peer with maintained one ([#2540](https://github.com/webtorrent/webtorrent/issues/2540)) ([2994641](https://github.com/webtorrent/webtorrent/commit/29946414dbc53a23adf61e91d302fa1ea82f543f))
+
+## [2.0.19](https://github.com/webtorrent/webtorrent/compare/v2.0.18...v2.0.19) (2023-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.8 ([714535b](https://github.com/webtorrent/webtorrent/commit/714535bc30466c5bf84a9c544747b9a16b57a21d))
+
+## [2.0.18](https://github.com/webtorrent/webtorrent/compare/v2.0.17...v2.0.18) (2023-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @webtorrent/semantic-release-config to v1.0.9 ([#2528](https://github.com/webtorrent/webtorrent/issues/2528)) ([19d26f0](https://github.com/webtorrent/webtorrent/commit/19d26f00b7a0a0617ca4c0d6d94806a5256353ed))
+
 ## [2.0.17](https://github.com/webtorrent/webtorrent/compare/v2.0.16...v2.0.17) (2023-05-04)
 
 

@@ -1,19 +1,18 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 import EventEmitter from 'events'
 import path from 'path'
-import concat from 'simple-concat'
 import createTorrent, { parseInput } from 'create-torrent'
 import debugFactory from 'debug'
 import { Client as DHT } from 'bittorrent-dht' // browser exclude
 import loadIPSet from 'load-ip-set' // browser exclude
 import parallel from 'run-parallel'
 import parseTorrent from 'parse-torrent'
-import Peer from 'simple-peer'
+import Peer from '@thaunknown/simple-peer/lite.js'
 import queueMicrotask from 'queue-microtask'
-import randombytes from 'randombytes'
-import { hash, hex2arr, arr2hex, arr2base, text2arr } from 'uint8-util'
+import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes, concat } from 'uint8-util'
 import throughput from 'throughput'
 import { ThrottleGroup } from 'speed-limiter'
+import NatAPI from '@silentbot1/nat-api' // browser exclude
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
@@ -55,7 +54,7 @@ export default class WebTorrent extends EventEmitter {
     } else if (ArrayBuffer.isView(opts.peerId)) {
       this.peerId = arr2hex(opts.peerId)
     } else {
-      this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randombytes(9))))
+      this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randomBytes(9))))
     }
     this.peerIdBuffer = hex2arr(this.peerId)
 
@@ -64,7 +63,7 @@ export default class WebTorrent extends EventEmitter {
     } else if (ArrayBuffer.isView(opts.nodeId)) {
       this.nodeId = arr2hex(opts.nodeId)
     } else {
-      this.nodeId = arr2hex(randombytes(20))
+      this.nodeId = arr2hex(randomBytes(20))
     }
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
@@ -77,12 +76,22 @@ export default class WebTorrent extends EventEmitter {
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.lsd = opts.lsd !== false
     this.utPex = opts.utPex !== false
+    this.natUpnp = opts.natUpnp ?? true
+    this.natPmp = opts.natPmp ?? true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
+
+    if ((this.natUpnp || this.natPmp) && typeof NatAPI === 'function') {
+      this.natTraversal = new NatAPI({
+        enableUPNP: this.natUpnp,
+        enablePMP: this.natPmp,
+        upnpPermanentFallback: opts.natUpnp === 'permanent'
+      })
+    }
 
     if (opts.secure === true) {
       import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
@@ -125,7 +134,19 @@ export default class WebTorrent extends EventEmitter {
 
       this.dht.once('listening', () => {
         const address = this.dht.address()
-        if (address) this.dhtPort = address.port
+        if (address) {
+          this.dhtPort = address.port
+          if (this.natTraversal) {
+            this.natTraversal.map({
+              publicPort: this.dhtPort,
+              privatePort: this.dhtPort,
+              protocol: 'udp',
+              description: 'WebTorrent DHT'
+            }).catch(err => {
+              debug('error mapping DHT port via UPnP/PMP: %o', err)
+            })
+          }
+        }
       })
 
       // Ignore warning when there are > 10 torrents in the client
@@ -328,13 +349,19 @@ export default class WebTorrent extends EventEmitter {
     if (isFileList(input)) input = Array.from(input)
     else if (!Array.isArray(input)) input = [input]
 
-    parallel(input.map(item => cb => {
+    parallel(input.map(item => async cb => {
       if (!opts.preloadedStore && isReadable(item)) {
-        concat(item, (err, buf) => {
-          if (err) return cb(err)
-          buf.name = item.name
-          cb(null, buf)
-        })
+        const chunks = []
+        try {
+          for await (const chunk of item) {
+            chunks.push(chunk)
+          }
+        } catch (err) {
+          return cb(err)
+        }
+        const buf = concat(chunks)
+        buf.name = item.name
+        cb(null, buf)
       } else {
         cb(null, item)
       }
@@ -459,6 +486,13 @@ export default class WebTorrent extends EventEmitter {
       })
     }
 
+    if (this.natTraversal) {
+      tasks.push(cb => {
+        this.natTraversal.destroy()
+          .then(() => cb())
+      })
+    }
+
     parallel(tasks, cb)
 
     if (err) this.emit('error', err)
@@ -478,7 +512,19 @@ export default class WebTorrent extends EventEmitter {
     if (this._connPool) {
       // Sometimes server.address() returns `null` in Docker.
       const address = this._connPool.tcpServer.address()
-      if (address) this.torrentPort = address.port
+      if (address) {
+        this.torrentPort = address.port
+        if (this.natTraversal) {
+          this.natTraversal.map({
+            publicPort: this.torrentPort,
+            privatePort: this.torrentPort,
+            protocol: this.utp ? null : 'tcp',
+            description: 'WebTorrent Torrent'
+          }).catch(err => {
+            debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
+          })
+        }
+      }
     }
 
     this.emit('listening')
