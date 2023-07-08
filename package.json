@@ -68,7 +68,7 @@
     "run-parallel": "^1.2.0",
     "run-parallel-limit": "^1.1.0",
     "speed-limiter": "^1.0.2",
-    "streamx": "^2.14.3",
+    "streamx": "^2.15.0",
     "throughput": "^1.0.1",
     "torrent-discovery": "^10.0.13",
     "torrent-piece": "^2.0.1",
@@ -113,7 +113,7 @@
     "timers-browserify": "^2.0.12",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
-    "webtorrent-fixtures": "1.7.5"
+    "webtorrent-fixtures": "2.0.2"
   },
   "optionalDependencies": {
     "utp-native": "^2.5.3"
